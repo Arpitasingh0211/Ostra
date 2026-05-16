@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import "tailwindcss";
+
+@theme{
+    --font-display: "Bricolage Grotesque", sans-serif;
+}
+
+/* clerk user button adjust */
+.cl-avatarBox {
+    width: 2rem;
+    height: 2rem;
+}
+
+.arrows{
+    height: 40px;
+    width: 40px;
+    margin: 1px;
+    background-color: red;
+}
+.slick-prev:before,
+.slick-next:before {
+  display: none;
+  
+}
