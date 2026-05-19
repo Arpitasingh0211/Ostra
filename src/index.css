@@ -10,7 +10,7 @@
     width: 2rem;
     height: 2rem;
 }
-
+/* carousel arrow */
 .arrows{
     height: 40px;
     width: 40px;
@@ -20,5 +20,12 @@
 .slick-prev:before,
 .slick-next:before {
   display: none;
-  
+}
+
+/* input color */
+input{
+    background-color: #fff;
+    accent-color: red;
+    border: 1px solid #ccc;
+    color: #333;
 }
