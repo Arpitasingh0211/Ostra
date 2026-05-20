@@ -2,6 +2,7 @@ import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { toast } from "react-toastify";
 
 const ProductCard = ({product}) => {
   
@@ -18,6 +19,7 @@ const ProductCard = ({product}) => {
     } else {
       // ✅ If not in cart, add to cart
       addToCart(product)
+      toast.success("Product is added to cart")
     }
   }
 
@@ -36,9 +38,10 @@ const ProductCard = ({product}) => {
       <button
         onClick={handleCartClick}
         className={`px-3 py-2 text-lg rounded-md text-white w-full cursor-pointer flex gap-2 items-center justify-center font-semibold transition-all ${
-          isInCart ? "bg-gray-800 hover:bg-gray-900" : "bg-red-500 hover:bg-red-600"
+          isInCart ? "bg-red-500 hover:bg-red-600" : "bg-red-500 hover:bg-red-600"
         }`}
       >
+        
         <IoCartOutline className="w-6 h-6" />
         {isInCart ? "Buy Now" : "Add to Cart"}
       </button>

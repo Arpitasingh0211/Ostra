@@ -18,7 +18,10 @@ const Products = () => {
 
   useEffect(() => {
     fetchAllProducts()
+    window.scrollTo(0, 0)
   }, [])
+
+ 
 
   // ✅ When URL param changes, update category
   useEffect(() => {

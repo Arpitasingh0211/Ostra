@@ -26,11 +26,11 @@ const Catagory = () => {
                 src={CatItem.thumbnail}
                 alt="Ostra Category"
                 className="h-[150px] w-[150px] rounded-2xl bg-blue-50 cursor-pointer hover:scale-105 transition-all"
-                onClick={() => navigate(`/products?category=${CatItem.category}`)}
+                onClick={() => navigate(`/catagory/${CatItem.category}`)}
               />
               {/* ✅ Navigate with category in URL */}
               <button
-                onClick={() => navigate(`/products?category=${CatItem.category}`)}
+                onClick={() => navigate(`/catagory/${CatItem.category}`)}
                 className="text-purple-500 text-sm font-display cursor-pointer uppercase hover:bg-[#8d7cb4] hover:text-white transition-all duration-300 text-black px-3 py-1 rounded-xl"
               >
                 {CatItem.category}

@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 export const CartContext = createContext(null)
 
 export const CartProvider = ({children}) => {
     const [cartItem, setCartItem] = useState([])
 
-    // ✅ If product already exists, increase quantity
+    //  If product already exists, increase quantity
     const addToCart = (product) => {
         setCartItem((prev) => {
             const existing = prev.find((item) => item.id === product.id)
@@ -13,14 +14,14 @@ export const CartProvider = ({children}) => {
                 return prev.map((item) =>
                     item.id === product.id
                         ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                )
+                        : item,                        
+                    )
             }
             return [...prev, { ...product, quantity: 1 }]
         })
     }
 
-    // ✅ Increase quantity
+    //  Increase quantity
     const increaseQuantity = (id) => {
         setCartItem((prev) =>
             prev.map((item) =>
