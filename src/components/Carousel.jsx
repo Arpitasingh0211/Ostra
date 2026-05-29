@@ -1,128 +1,194 @@
-import React, { useContext, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
-import { Sparkles } from "lucide-react";
-import { getData } from "../context/DataContext";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import OstraHeroBgImg from "../assets/OstraHeroBgImg.jpeg";
-import Catagory from "./Catagory";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AirPodsImg from "../assets/AirPodsthumbnail.png";
+import WatchImg from "../assets/Smartwatchthumbnail.png";
+import HeadphoneImg from "../assets/Headphonethumbnail.png";
+
+// 4 slides so tablet shows all 4
+const PRODUCT_SEARCHES = [
+  {
+    query: "AirPods Max",
+    accent: "#C0C0C0",
+    glow: "rgba(192,192,192,0.55)",
+    bg: "linear-gradient(135deg, #1a1a2e 0%, #2d2d2d 50%, #1a1a2e 100%)",
+    image: AirPodsImg,
+    label: "New Arrival",
+    heading: "AirPods Max\nSilver Edition",
+    discount: "UP TO 20% OFF",
+    description: "Over-ear noise cancelling. Premium sound. Iconic Apple design.",
+    id: 101,
+  },
+  {
+    query: "Apple Watch Series 4",
+    accent: "#FFD700",
+    glow: "rgba(255,215,0,0.55)",
+    bg: "linear-gradient(135deg, #1a1a2e 0%, #2a2000 50%, #1a1a2e 100%)",
+    image: WatchImg,
+    label: "Best Seller",
+    heading: "Apple Watch\nSeries 4 Gold",
+    discount: "UP TO 25% OFF",
+    description: "Stunning gold case. Health tracking. Always-on display.",
+    id: 106,
+  },
+  {
+    query: "Apple AirPods",
+    accent: "#E8E8E8",
+    glow: "rgba(232,232,232,0.55)",
+    bg: "linear-gradient(135deg, #0f0c29 0%, #1a1a2e 50%, #16213e 100%)",
+    image: HeadphoneImg,
+    label: "Hot Deal",
+    heading: "Apple AirPods\nTrue Wireless",
+    discount: "UP TO 15% OFF",
+    description: "Seamless pairing. Crystal clear audio. All-day comfort.",
+    id: 100,
+  },
+  // {
+  //   query: "Smartwatch",
+  //   accent: "#a78bfa",
+  //   glow: "rgba(167,139,250,0.55)",
+  //   bg: "linear-gradient(135deg, #1a1a2e 0%, #2d1a4e 50%, #1a1a2e 100%)",
+  //   image: WatchImg,
+  //   label: "Trending",
+  //   heading: "Smartwatches\nRedefined",
+  //   discount: "UP TO 30% OFF",
+  //   description: "Track your health, stay connected, look stunning.",
+  //   id: 106,
+  // },
+];
+
 const Carousel = () => {
-  const { data, fetchAllProducts } = getData();
-  // console.log(data);
+  const [current, setCurrent] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const navigate = useNavigate();
+  const slides = PRODUCT_SEARCHES;
+
+  const goTo = (index) => {
+    if (animating || index === current) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setCurrent(index);
+      setAnimating(false);
+    }, 300);
+  };
+
   useEffect(() => {
-    fetchAllProducts();
-  }, []);
+    const timer = setInterval(() => {
+      goTo((current + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [current]);
 
-  const SamplePrevArrow = (props) => {
-  const { className, style, onClick } = props;
-
-  return (
-    <div
-      className={className}
-      onClick={onClick}
-      style={{
-        ...style,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 10,
-        left: "20px",
-        height:"60px",
-        width: "60px"
-      }}
-    >
-      <AiOutlineArrowLeft
-        style={{
-          color: "#42005a",
-          borderRadius: "50%",
-          padding: "8px",
-          fontSize: "40px",
-          cursor: "pointer",
-          backgroundColor:"white",
-          borderBottom: "3px solid #e5e7eb"
-        }}
-      />
-    </div>
-  );
-};
-  const SampleNextArrow = (props) => {
-  const { className, style, onClick } = props;
+  const slide = slides[current];
 
   return (
-    <div
-      className={className}
-      onClick={onClick}
-      style={{
-        ...style,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 10,
-        right: "20px",
-        height:"60px",
-        width: "60px"
-      }}
-    >
-      <AiOutlineArrowRight
-        style={{
-          color: "#42005a",
-          borderRadius: "50%",
-          padding: "8px",
-          fontSize: "40px",
-          cursor: "pointer",
-          backgroundColor:"white",
-          borderBottom: "3px solid #e5e7eb"
-        }}
-      />
-    </div>
-  );
-};
-
-var settings = {
-  dots: true,
-  autoplay: true,
-  autoplaySpeed: 2000,
-  infinite: true,
-  speed: 800,
-  pauseOnHover: false,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />,
-};
-  return (
-    <div>
-      <Slider {...settings}>
-        {data?.slice(7,14).map((item, index) => {
-          return (
-            <div
-              key={index}
-              // className="bg-gradient-to-r from-[#0f0c29] via-[#302b63] to-[#24243e] -z-10"
+    <div className="w-full px-3 sm:px-4 lg:px-6 pt-10 pb-4 sm:pb-6 mt-20 md:mt-24 lg:mt ">
+      <div
+        className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden"
+        style={{ background: slide.bg, minHeight: "260px", transition: "background 0.5s ease" }}
+      >
+        <div
+          className="flex items-center justify-between h-full"
+          style={{
+            padding: "clamp(24px, 4vw, 48px) clamp(20px, 4vw, 56px)",
+            opacity: animating ? 0 : 1,
+            transform: animating ? "translateY(8px)" : "translateY(0)",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+          }}
+        >
+          {/* LEFT */}
+          <div className="flex flex-col gap-2 sm:gap-3 z-10" style={{ maxWidth: "480px" }}>
+            <span
+              className="text-[10px] sm:text-xs font-bold tracking-widest uppercase"
+              style={{ color: slide.accent }}
             >
-              <div className="relative ">
-                <div className="w-full min-h-180 bg-cover bg-center bg-no-repeat overflow-hidden  "
-                style={{
-                  backgroundImage: `url(${OstraHeroBgImg})`
-                }}>
-                  <img src={item.thumbnail} alt={item.title} className="absolute w-[600px] h-[580px] top-[23%] left-[52%]  " />
-                  <div className="flex flex-col gap-2 absolute top-[35%] left-[15%]">
-                    <h3 className="text-purple-500  font-display text-sm uppercase tracking-widest flex gap-2 "><Sparkles className="h-4"/>premium beauty</h3>
-                    <h1 className="font-sans text-7xl font-bold  line-clamp-3 w-[650px] h-[160px] mb-5 text-[#42005a] tracking-wider">Beauty That Speaks <span className="text-[#8B7CF6]">Elegance.</span></h1>
-                    <p className="text-gray-400 md:w-[500px] line-clamp-3 pr-7 mb-5">{item.description}</p>
-                    <button className="bg-[#8B7CF6] hover:bg-[#473e81] hover:text-white transition-all duration-300 text-white px-6 py-3 rounded-4xl font-semibold active:scale-98 w-max flex gap-2 items-center">Shop now <ArrowRight className="h-5 w-5 "/></button>
-                  </div>
-                </div>
-                <div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-        
-      </Slider>
-      <Catagory/>
+              {slide.label}
+            </span>
+            <h1
+              className="font-extrabold text-white leading-tight whitespace-pre-line"
+              style={{ fontSize: "clamp(22px, 3.5vw, 52px)" }}
+            >
+              {slide.heading}
+            </h1>
+            <p
+              className="font-bold"
+              style={{ color: slide.accent, fontSize: "clamp(14px, 2vw, 28px)" }}
+            >
+              {slide.discount}
+            </p>
+            <p className="text-gray-400 text-xs sm:text-sm hidden sm:block">{slide.description}</p>
+
+            {/* Shop Now BELOW title/discount */}
+            <button
+              onClick={() => navigate(`/products/${slide.id}`)}
+              className="px-5 sm:px-7 py-2 sm:py-3 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer border-none w-max mt-1"
+              style={{ backgroundColor: slide.accent, color: "#1a1a2e" }}
+            >
+              Shop Now →
+            </button>
+          </div>
+
+          {/* RIGHT — image with strong glow */}
+          <div
+            className="relative flex items-center justify-center shrink-0"
+            style={{ width: "clamp(120px, 25vw, 320px)", height: "clamp(120px, 25vw, 300px)" }}
+          >
+            {/* Strong visible glow circle */}
+            <div
+              className="absolute"
+              style={{
+                width: "85%",
+                height: "85%",
+                borderRadius: "50%",
+                background: slide.glow,
+                filter: "blur(40px)",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+            {/* Outer softer ring */}
+            <div
+              className="absolute"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                background: slide.glow.replace("0.55", "0.2"),
+                filter: "blur(70px)",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+            <img
+              src={slide.image}
+              alt={slide.heading}
+              className="relative z-10 object-contain"
+              style={{
+                width: "90%",
+                height: "90%",
+                filter: `drop-shadow(0 0 20px ${slide.glow})`,
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className="rounded-full cursor-pointer border-none transition-all duration-300"
+              style={{
+                width: i === current ? "22px" : "8px",
+                height: "8px",
+                background: i === current ? slide.accent : "rgba(255,255,255,0.3)",
+              }}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

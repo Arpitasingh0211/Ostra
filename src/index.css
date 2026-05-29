@@ -15,17 +15,28 @@
     height: 40px;
     width: 40px;
     margin: 1px;
-    background-color: red;
+    background-color: linear-gradient(135deg, #c5c53f 0%, #f9e508 100%);
+    color: #b8e5c8 
+
 }
 .slick-prev:before,
 .slick-next:before {
   display: none;
 }
 
-/* input color */
-input{
-    background-color: #fff;
-    accent-color: red;
-    border: 1px solid #ccc;
-    color: #333;
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  will-change: auto;
+}
+
+.group:hover {
+  will-change: transform;
 }

@@ -9,7 +9,6 @@ const footerLinks = [
   "Size Guide",
 ];
 
-// Custom SVG icons to avoid lucide-react compatibility issues
 const FacebookIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
@@ -45,22 +44,23 @@ const socialIcons = [
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-[#0f1623] text-gray-300 text-sm">
+    <footer className="bg-[#0f172a] text-sm">
+
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
         {/* Brand */}
         <div className="space-y-3">
-          <h2 className="text-2xl font-bold text-red-500 tracking-wide">Ostra</h2>
+          <h2 className="text-2xl font-bold text-white tracking-tight">Ostra</h2>
           <p className="text-gray-400 leading-relaxed">
             Powering Your World with the Best in Electronics.
           </p>
-          <div className="text-gray-400 space-y-1 pt-1">
+          <div className="text-gray-500 space-y-1 pt-1">
             <p>123 Electronics St, Style City, NY 10001</p>
-            <p>Email: support@Zaptro.com</p>
+            <p>Email: support@ostra.com</p>
             <p>Phone: (123) 456-7890</p>
           </div>
         </div>
@@ -93,7 +93,7 @@ export default function Footer() {
                 aria-label={label}
                 className="text-gray-400 hover:text-white transition-colors duration-200"
               >
-                <Icon size={20} strokeWidth={1.5} />
+                <Icon />
               </a>
             ))}
           </div>
@@ -111,9 +111,9 @@ export default function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email address"
-              className="flex-1 min-w-0 px-3 py-2 bg-white text-gray-800 text-sm placeholder-gray-400 outline-none rounded-l"
+              className="flex-1 min-w-0 px-3 py-2 bg-[#1e293b] text-gray-200 text-sm placeholder-gray-500 outline-none rounded-l border border-[#334155] border-r-0"
             />
-            <button className="bg-red-600 hover:bg-red-700 transition-colors duration-200 text-white px-4 py-2 text-sm font-medium rounded-r whitespace-nowrap">
+            <button className="bg-[#1a1a2e] hover:bg-[#2d2d4e] border border-[#334155] transition-colors duration-200 text-white px-4 py-2 text-sm font-medium rounded-r whitespace-nowrap">
               Subscribe
             </button>
           </div>
@@ -121,22 +121,21 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700">
+      <div className="border-t border-[#1e293b]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center relative">
           <p className="text-gray-500 text-xs text-center">
-            © 2025{" "}
-            <span className="text-red-500 font-medium">Zaptro</span>. All rights
-            reserved
+            © 2025 <span className="text-white font-medium">Ostra</span>. All rights reserved
           </p>
           <button
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="absolute right-6 bg-red-600 hover:bg-red-700 transition-colors duration-200 text-white p-2 rounded"
+            className="absolute right-6 bg-[#1a1a2e] hover:bg-[#2d2d4e] border border-[#334155] transition-colors duration-200 text-white p-2 rounded-lg cursor-pointer"
           >
             <ArrowUp size={16} />
           </button>
         </div>
       </div>
+
     </footer>
   );
 }
