@@ -226,7 +226,6 @@ const Navbar = ({ location, getLocation }) => {
     <IoArrowBackOutline className="text-gray-600 text-base" />
   </button>
 )}
-
           <div className="relative flex-1">
             <div className="ostra-search-box border-none flex items-center rounded-lg px-3 h-10 gap-2 bg-gray-100/50 cursor-text" onClick={() => inputRef.current?.focus()}>
               <div className="relative flex-1 h-full overflow-hidden border-none">

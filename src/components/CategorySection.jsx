@@ -9,7 +9,7 @@ import Furniture from "../assets/categoryImages/Furniture.webp";
 import Groceries from "../assets/categoryImages/Groceries.webp";
 import HomeDecor from "../assets/categoryImages/HomeDecor.webp";
 import Kitchen from "../assets/categoryImages/Kitchen.webp";
-import Motorcycle from "../assets/categoryImages/Motorcycle.webp";
+import Motorcycle from "../assets/categoryImages/MotorCycle.webp";
 import Laptops from "../assets/categoryImages/Laptop.webp";
 import Shirt from "../assets/categoryImages/Shirt.webp";
 import Shoes from "../assets/categoryImages/Shoes.webp";
