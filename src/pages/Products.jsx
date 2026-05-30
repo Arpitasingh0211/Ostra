@@ -83,7 +83,7 @@ const Products = () => {
   const banner = getBanner(category);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-20">
+    <div className="bg-gray-50 min-h-screen pt-24 md:pt-28 lg:pt-[70px]">
       {!data ? (
         <div className="flex items-center justify-center h-screen">
           <DotLottieReact src="/loading.lottie" loop autoplay style={{ width: 180, height: 180 }} />

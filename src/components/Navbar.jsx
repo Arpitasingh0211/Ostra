@@ -145,7 +145,7 @@ const Navbar = ({ location, getLocation }) => {
         </div>
 
         <div className="relative flex-1 max-w-xl" ref={searchRef}>
-          <div className="ostra-search-box flex items-center rounded-lg bg-gray-100/50 px-3 h-10 gap-2 cursor-text" onClick={() => inputRef.current?.focus()}>
+          <div className="ostra-search-box flex items-center rounded-lg bg-gray-100/50 px-3 h-10 gap-2 cursor-text border-none outline-none" onClick={() => inputRef.current?.focus()}>
             <div className="relative flex-1 h-full overflow-hidden">
               {!isFocused && !searchQuery && (
                 <span className="absolute inset-0 flex items-center text-sm text-gray-400 pointer-events-none select-none" style={placeholderTransitionStyle[slideState]}>
@@ -235,7 +235,7 @@ const Navbar = ({ location, getLocation }) => {
   </button>
 )}
           <div className="relative flex-1">
-            <div className="ostra-search-box border-none flex items-center rounded-lg px-3 h-10 gap-2 bg-gray-100/50 cursor-text" onClick={() => inputRef.current?.focus()}>
+            <div className="ostra-search-box flex items-center rounded-lg px-3 h-10 gap-2 bg-gray-100/50 cursor-text border-none outline-none" onClick={() => inputRef.current?.focus()}>
               <div className="relative flex-1 h-full overflow-hidden border-none">
                 {!isFocused && !searchQuery && (
                   <span className="absolute inset-0 flex items-center text-sm text-gray-400  pointer-events-none select-none" style={placeholderTransitionStyle[slideState]}>
@@ -305,7 +305,7 @@ const Navbar = ({ location, getLocation }) => {
   </button>
 )}
           <div className="relative flex-1">
-            <div className="ostra-search-box flex items-center rounded-lg bg-gray-100/50 px-3 h-10 gap-2 cursor-text" onClick={() => inputRef.current?.focus()}>
+            <div className="ostra-search-box flex items-center rounded-lg bg-gray-100/50 px-3 h-10 gap-2 cursor-text border-none outline-none" onClick={() => inputRef.current?.focus()}>
               <div className="relative flex-1 h-full overflow-hidden">
                 {!isFocused && !searchQuery && (
                   <span className="absolute inset-0 flex items-center text-sm text-gray-400 pointer-events-none select-none" style={placeholderTransitionStyle[slideState]}>

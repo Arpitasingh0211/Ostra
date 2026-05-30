@@ -61,3 +61,8 @@ body {
 :root {
   --navbar-height: 114px;
 }
+input {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
