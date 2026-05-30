@@ -81,7 +81,7 @@ const Carousel = () => {
   const slide = slides[current];
 
   return (
-    <div className="w-full px-3 sm:px-4 lg:px-6 pt-10 pb-4 sm:pb-6 mt-20 md:mt-24 lg:mt ">
+    <div className="w-full px-3 sm:px-4 lg:px-6 pt-2 pb-4 sm:pb-6 mt-28 md:mt-32 lg:mt-16">
       <div
         className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden"
         style={{ background: slide.bg, minHeight: "260px", transition: "background 0.5s ease" }}

@@ -48,8 +48,7 @@ const TopCategories = () => {
         {TOP_CATEGORIES.map((item, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/catagory/${item.category}`)}
-            className="cursor-pointer group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
+onClick={() => navigate(`/category/${item.category}`)}            className="cursor-pointer group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
           >
             {/* Image */}
             <div className="w-full h-32 sm:h-40 lg:h-44 bg-gray-50 overflow-hidden">

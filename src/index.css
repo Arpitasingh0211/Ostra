@@ -40,3 +40,24 @@ img {
 .group:hover {
   will-change: transform;
 }
+
+
+body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+:root {
+  --navbar-height: 114px;
+}

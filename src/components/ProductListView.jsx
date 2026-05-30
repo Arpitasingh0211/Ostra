@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
-import { toast } from "react-toastify";
+
 import { IoCartOutline } from "react-icons/io5";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
@@ -24,7 +24,6 @@ const ProductListView = ({ product }) => {
       navigate("/cart");
     } else {
       addToCart(product);
-      toast.success("Product added to cart!");
     }
   };
 

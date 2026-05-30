@@ -75,19 +75,19 @@ const SingleProduct = () => {
   const handleWishlist = () => toggleWishlist(product);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-28 sm:pt-32 md:pt-30 pb-10 md:pb-16">
+    <div className="min-h-screen bg-gray-50 pt-20 pb-10 md:pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Breadcrumb */}
-        <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4 md:mb-6 mt-2 md:mt-3">
+        <div className=" flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4 md:mb-6 mt-2 md:mt-3">
 
           {/* Back button */}
-          <button
+          {/* <button
             onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#1a1a2e] transition-colors cursor-pointer mr-2"
           >
             <IoArrowBackOutline className="text-lg" />
-          </button>
+          </button> */}
 
           <Link
             to="/"

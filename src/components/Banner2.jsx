@@ -56,8 +56,7 @@ const Banner2 = () => {
         {BANNERS.map((banner, index) => (
           <div
             key={index}
-            onClick={() => navigate(`/catagory/${banner.category}`)}
-            className="relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]"
+onClick={() => navigate(`/category/${banner.category}`)}            className="relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]"
             style={{ background: banner.bg, minHeight: "200px" }}
           >
             {/* Glow blob */}

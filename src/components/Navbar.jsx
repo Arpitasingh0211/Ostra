@@ -120,16 +120,24 @@ const Navbar = ({ location, getLocation }) => {
     ) : null;
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-white z-50 shadow-sm">
+    <div id="navbar" className="fixed top-0 left-0 w-full bg-white z-50 shadow-sm">
 
       {/* ── DESKTOP (lg+) — single row ── */}
       <div className="hidden lg:flex max-w-7xl mx-auto px-8 h-16 items-center gap-8">
-
+{currentLocation.pathname !== "/" && (
+    <button
+      onClick={() => navigate(-1)}
+      className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors cursor-pointer border-none"
+    >
+      <IoArrowBackOutline className="text-gray-600 text-base" />
+    </button>
+  )}
         <Link to="/" className="shrink-0">
           <span className="text-2xl font-bold text-[#1a1a2e] tracking-tight">Ostra</span>
         </Link>
 
         <div className="flex items-center gap-1 cursor-pointer shrink-0" onClick={getLocation} title="Click to refresh">
+          
           <IoLocationOutline className="text-gray-500 text-base shrink-0" />
           <span className="text-sm text-gray-700 max-w-[160px] truncate">
             {location ? `${location.city || location.town || location.village || ""}, ${location.state || ""}` : "Detecting..."}

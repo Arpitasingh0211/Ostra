@@ -170,11 +170,11 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-16">
+    <div className="min-h-screen bg-gray-50 lg:pt-20 md:pt-30 pt-30 pb-16 ">
       <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-8">
         {/* HEADER */}
         <div className="flex items-center gap-3 mb-6">
-          <button
+          {/* <button
             onClick={() => navigate(-1)}
             className="
               flex items-center gap-1
@@ -186,7 +186,7 @@ const Cart = () => {
           >
             <IoArrowBackOutline className="text-lg" />
             Back
-          </button>
+          </button> */}
 
           <div className="h-4 w-px bg-gray-200" />
 

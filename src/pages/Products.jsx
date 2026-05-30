@@ -45,6 +45,13 @@ const Products = () => {
   const [brand, setBrand] = useState("all");
   const [priceRange, setPriceRange] = useState(10000);
   const [showFilters, setShowFilters] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (!data) fetchAllProducts();
@@ -52,8 +59,7 @@ const Products = () => {
   }, []);
 
   useEffect(() => {
-    const urlCategory = searchParams.get("category");
-    setCategory(urlCategory || "all");
+    setCategory(searchParams.get("category") || "all");
   }, [searchParams]);
 
   useEffect(() => {
@@ -77,69 +83,74 @@ const Products = () => {
   const banner = getBanner(category);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50 min-h-screen pt-20">
       {!data ? (
         <div className="flex items-center justify-center h-screen">
           <DotLottieReact src="/loading.lottie" loop autoplay style={{ width: 180, height: 180 }} />
         </div>
       ) : (
-        // FIX 2: reduced top padding — was pt-24 md:pt-28 lg:pt-28, now pt-20 across the board
-        <div className="pt-20">
-          <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 pb-16">
+        <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 pb-16">
 
-            {/* Back Button */}
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#1a1a2e] transition-colors cursor-pointer mb-4"
-            >
-              <IoArrowBackOutline className="text-lg" />
-            </button>
+          {/* Back Button */}
+          {/* <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#1a1a2e] transition-colors cursor-pointer mb-4 mt-2 sticky top-20 z-10 bg-gray-50 py-1"
+          >
+            <IoArrowBackOutline className="text-lg" />
+          </button> */}
 
-            {/* Main Layout */}
-            <div className="flex gap-4 md:gap-5 items-start">
+          {/* Main Layout */}
+          <div className="flex gap-5 items-start pt-0">
 
-              {/* Mobile Filter Button */}
+            {/* ── DESKTOP SIDEBAR ── */}
+            {isDesktop && (
+              <div style={{
+                position: "sticky",
+                top: "120px",
+                width: "256px",
+                flexShrink: 0,
+                maxHeight: "calc(100vh - 130px)",
+                overflowY: "auto",
+                alignSelf: "flex-start",
+              }}>
+                <FilterSection
+                  search={search}
+                  setSearch={setSearch}
+                  brand={brand}
+                  setBrand={setBrand}
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                  category={category}
+                  setCategory={setCategory}
+                  handleBrandChange={handleBrandChange}
+                  data={data}
+                />
+              </div>
+            )}
+
+            {/* ── MOBILE FILTER BUTTON ── */}
+            {!isDesktop && (
               <button
                 onClick={() => setShowFilters(true)}
-                className="lg:hidden fixed bottom-5 left-5 z-50 bg-[#1a1a2e] text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 text-sm font-semibold"
+                className="fixed bottom-5 left-5 z-50 bg-[#1a1a2e] text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2 text-sm font-semibold"
               >
                 ☰ Filters
               </button>
+            )}
 
-              {/* Overlay */}
-              {showFilters && (
-                <div onClick={() => setShowFilters(false)} className="fixed inset-0 bg-black/40 z-40 lg:hidden" />
-              )}
+            {/* ── MOBILE OVERLAY ── */}
+            {showFilters && (
+              <div onClick={() => setShowFilters(false)} className="fixed inset-0 bg-black/40 z-40" />
+            )}
 
-              {/* Sidebar — mobile: slide-in drawer / desktop: sticky column, NO overflow of its own */}
-              <div
-                className={`fixed top-0 left-0 h-screen w-72 bg-white z-50 shadow-2xl overflow-y-auto
-                  lg:static lg:translate-x-0 lg:h-auto lg:w-64 lg:shadow-none lg:overflow-visible
-                  transition-transform duration-300
-                  ${showFilters ? "translate-x-0" : "-translate-x-full"}`}
-                // FIX 1: on desktop, sticky positioning is handled here only — FilterSection's
-                // own sticky/overflow styles are intentionally overridden below via a wrapper.
-                style={{
-                  ...(window.innerWidth >= 1024 && {
-                    position: "sticky",
-                    top: "80px",           // matches navbar height
-                    maxHeight: "calc(100vh - 96px)",
-                    overflowY: "auto",
-                  }),
-                }}
-              >
-                {/* Drawer Header (mobile only) */}
-                <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 lg:hidden">
+            {/* ── MOBILE DRAWER ── */}
+            {!isDesktop && (
+              <div className={`fixed top-0 left-0 h-screen w-72 bg-white z-50 shadow-2xl overflow-y-auto transition-transform duration-300 ${showFilters ? "translate-x-0" : "-translate-x-full"}`}>
+                <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
                   <h2 className="font-bold text-lg">Filters</h2>
-                  <button onClick={() => setShowFilters(false)} className="text-2xl text-gray-500">×</button>
+                  <button onClick={() => setShowFilters(false)} className="text-2xl text-gray-500 cursor-pointer">×</button>
                 </div>
-
-                {/* FilterSection wrapper — neutralise the sticky/overflow inside FilterSection
-                    so it doesn't create a second scroll container on desktop */}
-                <div
-                  className="p-3 lg:p-0 rounded"
-                  style={{ position: "static", height: "auto", maxHeight: "none", overflow: "visible" }}
-                >
+                <div className="p-3">
                   <FilterSection
                     search={search}
                     setSearch={setSearch}
@@ -154,59 +165,51 @@ const Products = () => {
                   />
                 </div>
               </div>
+            )}
 
-              {/* Right Content */}
-              <div className="flex-1 min-w-0 flex flex-col gap-4 md:gap-5 w-full">
+            {/* ── RIGHT CONTENT ── */}
+            <div className="flex-1 min-w-0 flex flex-col gap-4 md:gap-5 pt-10">
 
-                {/* Banner */}
-                <div
-                  className="relative rounded-2xl md:rounded-3xl overflow-hidden px-4 md:px-8 py-5 md:py-7 flex items-center justify-between min-h-[140px] md:min-h-[160px]"
-                  style={{ background: banner.bg }}
-                >
-                  <div className="flex flex-col gap-1 md:gap-2 z-10">
-                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest" style={{ color: banner.accent }}>
-                      {banner.label}
-                    </span>
-                    <h2 className="text-xl md:text-3xl font-bold text-white leading-tight">{banner.title}</h2>
-                    <p className="text-xs md:text-sm font-semibold" style={{ color: banner.accent }}>
-                      Up to {banner.disc} on top brands
-                    </p>
-                    <button
-                      onClick={() => navigate("/products")}
-                      className="mt-2 px-4 md:px-5 py-2 rounded-lg md:rounded-xl text-xs md:text-sm font-bold border-none cursor-pointer w-max transition-opacity duration-200 hover:opacity-90"
-                      style={{ background: banner.accent, color: "#1a1a2e" }}
-                    >
-                      Shop Now →
-                    </button>
-                  </div>
-                  <div
-                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-24 md:w-40 h-24 md:h-40 rounded-full blur-2xl opacity-30"
-                    style={{ background: banner.accent }}
-                  />
-                  <div className="absolute right-4 md:right-8 opacity-10 text-white z-10" style={{ fontSize: "50px" }}>
-                    🛍️
-                  </div>
+              {/* Banner */}
+              <div
+                className="relative rounded-2xl md:rounded-3xl overflow-hidden px-4 md:px-8 py-5 md:py-7 flex items-center justify-between min-h-[140px] md:min-h-[160px]"
+                style={{ background: banner.bg }}
+              >
+                <div className="flex flex-col gap-1 md:gap-2 z-10">
+                  <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest" style={{ color: banner.accent }}>
+                    {banner.label}
+                  </span>
+                  <h2 className="text-xl md:text-3xl font-bold text-white leading-tight">{banner.title}</h2>
+                  <p className="text-xs md:text-sm font-semibold" style={{ color: banner.accent }}>
+                    Up to {banner.disc} on top brands
+                  </p>
+                  <button
+                    onClick={() => navigate("/products")}
+                    className="mt-2 px-4 md:px-5 py-2 rounded-lg md:rounded-xl text-xs md:text-sm font-bold border-none cursor-pointer w-max hover:opacity-90 transition-opacity duration-150"
+                    style={{ background: banner.accent, color: "#1a1a2e" }}
+                  >
+                    Shop Now →
+                  </button>
                 </div>
+                <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-24 md:w-40 h-24 md:h-40 rounded-full blur-2xl opacity-30" style={{ background: banner.accent }} />
+                <div className="absolute right-4 md:right-8 opacity-10 text-white z-10" style={{ fontSize: "50px", userSelect: "none" }}>🛍️</div>
+              </div>
 
-                {/* Products Grid */}
-                <div>
-                  {filteredData?.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
-                      {filteredData.map((product, index) => (
-                        <ProductCard key={product.id} product={product} index={index} />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center h-96 gap-3">
-                      <span className="text-5xl">🔍</span>
-                      <p className="text-gray-500 font-medium">No products found</p>
-                      <button onClick={() => setCategory("all")} className="text-sm text-[#1a1a2e] underline cursor-pointer">
-                        Clear filters
-                      </button>
-                    </div>
-                  )}
-                </div>
-
+              {/* Products Grid */}
+              <div className="pb-4">
+                {filteredData?.length > 0 ? (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
+                    {filteredData.map((product, index) => (
+                      <ProductCard key={product.id} product={product} index={index} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-96 gap-3">
+                    <span className="text-5xl">🔍</span>
+                    <p className="text-gray-500 font-medium">No products found</p>
+                    <button onClick={() => setCategory("all")} className="text-sm text-[#1a1a2e] underline cursor-pointer">Clear filters</button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

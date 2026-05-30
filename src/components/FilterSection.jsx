@@ -79,7 +79,7 @@ const FilterSection = ({
   return (
     <div
       className="bg-white border border-gray-100 rounded-2xl p-4 shrink-0 flex flex-col gap-5"
-      style={{ width: "220px", position: "sticky", top: "88px", height: "fit-content", maxHeight: "calc(100vh - 100px)", overflowY: "auto" }}
+      style={{ width: "220px" }}
     >
 
       {/* ── CATEGORIES ── */}
